@@ -22,7 +22,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="139" id="Q3l-pn-qVt" customClass="VenueListTableViewCell" customModule="PlacesExplorer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="venueTableViewCell" rowHeight="139" id="Q3l-pn-qVt" customClass="VenueListTableViewCell" customModule="PlacesExplorer" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q3l-pn-qVt" id="Xem-Ql-J81">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -224,6 +224,10 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="6DM-w8-RXc"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="wCY-7p-tof"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <animations/>
@@ -257,6 +261,9 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="venuesTableView" destination="wPi-wo-nd5" id="FZR-2F-fBi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

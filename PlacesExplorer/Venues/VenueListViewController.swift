@@ -8,28 +8,41 @@
 
 import UIKit
 
-class VenueListViewController: UIViewController {
+class VenueListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    @IBOutlet weak var venuesTableView: UITableView!
+    var venues: [Venue] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        fetchVenues()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func fetchVenues(){
+        let dataService = DataService()
+        dataService.getNearByVenues({ (venues) -> () in
+                print("Success \(venues.count)")
+                self.venues = venues
+                self.venuesTableView.reloadData()
+            }) { (error) -> () in
+                print("Failure")
+        }
     }
-    */
+    
+    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return venues.count;
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("venueTableViewCell") as! VenueListTableViewCell
+        let venue = venues[indexPath.row]
+        print("\(venue.name)")
+        cell.venueTitleLabel.text = venue.name
+        return cell
+    }
 
 }

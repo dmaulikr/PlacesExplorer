@@ -15,15 +15,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        print("AppDelegate")
-        let dataService = DataService()
-        dataService.getNearByVenues({ (venues) -> () in
-                print("Success \(venues.count)")
-            }) { (error) -> () in
-                print("Failure")
-        }
-        
-        // Override point for customization after application launch.
         return true
     }
 
