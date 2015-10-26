@@ -21,13 +21,6 @@ class DataService {
         let url = NSURL(string: urlString)
         let urlSession = NSURLSession.sharedSession()
         urlSession.dataTaskWithURL(url!) { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
-//            let responseDict = response as! Dictionary<String, AnyObject>
-//            Mapper().map(responseDict, toObject: Venue)
-//            let dataDict = nil
-//            try {
-//                dataDict = NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.AllowFragments)
-//            }
-//            print("dataDict \(dataDict)")
             
             do {
                 let JSON = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
@@ -44,7 +37,7 @@ class DataService {
                 success(venues: venues)
             }
             catch let JSONError as NSError {
-                print("\(JSONError)")
+                print("Error -> \(JSONError)")
             }
             
         }.resume()
