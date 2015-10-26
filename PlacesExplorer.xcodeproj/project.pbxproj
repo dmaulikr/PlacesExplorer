@@ -29,6 +29,7 @@
 		3EB89A5A1BDDC320004CD300 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A4E1BDDC320004CD300 /* URLTransform.swift */; };
 		3EB89A5D1BDDC350004CD300 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A5C1BDDC350004CD300 /* Venue.swift */; };
 		3EB89A5F1BDDC35A004CD300 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A5E1BDDC359004CD300 /* AppModel.swift */; };
+		3EB89A621BDDD6BE004CD300 /* VenueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		3EB89A4E1BDDC320004CD300 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
 		3EB89A5C1BDDC350004CD300 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		3EB89A5E1BDDC359004CD300 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 		3E72AAAE1BDD94F900992D6A /* PlacesExplorer */ = {
 			isa = PBXGroup;
 			children = (
+				3EB89A601BDDD67C004CD300 /* Venues */,
 				3EB89A5B1BDDC33E004CD300 /* Model */,
 				3EB89A3F1BDDC2D8004CD300 /* Core */,
 				3EB89A3C1BDDBF89004CD300 /* Networking */,
@@ -216,6 +219,14 @@
 				3EB89A5E1BDDC359004CD300 /* AppModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		3EB89A601BDDD67C004CD300 /* Venues */ = {
+			isa = PBXGroup;
+			children = (
+				3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */,
+			);
+			path = Venues;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,6 +376,7 @@
 				3EB89A591BDDC320004CD300 /* TransformType.swift in Sources */,
 				3EB89A571BDDC320004CD300 /* ISO8601DateTransform.swift in Sources */,
 				3EB89A501BDDC320004CD300 /* Mapper.swift in Sources */,
+				3EB89A621BDDD6BE004CD300 /* VenueListViewController.swift in Sources */,
 				3EB89A511BDDC320004CD300 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
