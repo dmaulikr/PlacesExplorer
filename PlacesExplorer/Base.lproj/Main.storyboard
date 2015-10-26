@@ -22,7 +22,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="139" id="Q3l-pn-qVt">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="139" id="Q3l-pn-qVt" customClass="VenueListTableViewCell" customModule="PlacesExplorer" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q3l-pn-qVt" id="Xem-Ql-J81">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -213,6 +213,15 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <animations/>
+                                        <connections>
+                                            <outlet property="venueCommentLabel" destination="C2w-cM-DLN" id="XR4-lG-erx"/>
+                                            <outlet property="venueDistanceLabel" destination="XxF-Eh-lWI" id="NBE-HJ-qLY"/>
+                                            <outlet property="venueExpenseRangeLabel" destination="zgm-UU-9ZB" id="tcs-CX-4C5"/>
+                                            <outlet property="venueImageView" destination="7XK-8d-AT1" id="FF4-ez-qG7"/>
+                                            <outlet property="venuePlaceLabel" destination="sQg-GN-NZu" id="Sfj-Ie-0Gf"/>
+                                            <outlet property="venueTitleLabel" destination="JcA-0J-gVH" id="dfY-7A-teV"/>
+                                            <outlet property="venueTypeLabel" destination="NiU-i7-29j" id="KVF-sY-R5N"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>

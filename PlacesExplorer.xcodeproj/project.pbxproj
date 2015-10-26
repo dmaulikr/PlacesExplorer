@@ -30,6 +30,7 @@
 		3EB89A5D1BDDC350004CD300 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A5C1BDDC350004CD300 /* Venue.swift */; };
 		3EB89A5F1BDDC35A004CD300 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A5E1BDDC359004CD300 /* AppModel.swift */; };
 		3EB89A621BDDD6BE004CD300 /* VenueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */; };
+		3EB89A641BDDE0C7004CD300 /* VenueListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A631BDDE0C7004CD300 /* VenueListTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		3EB89A5C1BDDC350004CD300 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		3EB89A5E1BDDC359004CD300 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
 		3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListViewController.swift; sourceTree = "<group>"; };
+		3EB89A631BDDE0C7004CD300 /* VenueListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,7 @@
 			isa = PBXGroup;
 			children = (
 				3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */,
+				3EB89A631BDDE0C7004CD300 /* VenueListTableViewCell.swift */,
 			);
 			path = Venues;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				3EB89A5F1BDDC35A004CD300 /* AppModel.swift in Sources */,
 				3EB89A551BDDC320004CD300 /* DateTransform.swift in Sources */,
 				3EB89A521BDDC320004CD300 /* ToJSON.swift in Sources */,
+				3EB89A641BDDE0C7004CD300 /* VenueListTableViewCell.swift in Sources */,
 				3EB89A591BDDC320004CD300 /* TransformType.swift in Sources */,
 				3EB89A571BDDC320004CD300 /* ISO8601DateTransform.swift in Sources */,
 				3EB89A501BDDC320004CD300 /* Mapper.swift in Sources */,
