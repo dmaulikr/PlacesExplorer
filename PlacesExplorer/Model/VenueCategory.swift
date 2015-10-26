@@ -6,4 +6,18 @@
 //  Copyright © 2015 Madhu. All rights reserved.
 //
 
-import Foundation
+class VenueCategory: Mappable {
+
+    var id: String?
+    var name: String?
+
+    class func newInstance() -> Mappable {
+        return VenueCategory()
+    }
+    
+    func mapping(map: Map) {
+        id <- map["id"]
+        name <- map["name"]
+    }
+    
+}

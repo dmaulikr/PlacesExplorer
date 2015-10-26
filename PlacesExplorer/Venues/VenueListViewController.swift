@@ -20,10 +20,14 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     
     func fetchVenues(){
         let dataService = DataService()
+        print("Loading...")
         dataService.getNearByVenues({ (venues) -> () in
                 print("Success \(venues.count)")
-                self.venues = venues
-                self.venuesTableView.reloadData()
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.venues = venues
+                    self.venuesTableView.reloadData()
+                })
+            
             }) { (error) -> () in
                 print("Failure")
         }
@@ -42,6 +46,11 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         let venue = venues[indexPath.row]
         print("\(venue.name)")
         cell.venueTitleLabel.text = venue.name
+        if let categories = venue.categories {
+            if categories.count > 0 {
+                cell.venueTypeLabel.text = categories[0].name
+            }
+        }
         return cell
     }
 
