@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3E17A5951BEB1E26006A935C /* VenueDataServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17A5941BEB1E26006A935C /* VenueDataServiceTests.swift */; };
 		3E17A5971BEB21DD006A935C /* URLConstructor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E17A5961BEB21DD006A935C /* URLConstructor.swift */; };
+		3E517C1E1BEC213100AD0A6E /* VenueListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E517C1C1BEC213100AD0A6E /* VenueListTableViewCell.swift */; };
+		3E517C1F1BEC213100AD0A6E /* VenueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E517C1D1BEC213100AD0A6E /* VenueListViewController.swift */; };
 		3E72AAB01BDD94F900992D6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E72AAAF1BDD94F900992D6A /* AppDelegate.swift */; };
 		3E72AAB21BDD94F900992D6A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E72AAB11BDD94F900992D6A /* ViewController.swift */; };
 		3E72AAB51BDD94F900992D6A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3E72AAB31BDD94F900992D6A /* Main.storyboard */; };
@@ -31,8 +33,6 @@
 		3EB89A5A1BDDC320004CD300 /* URLTransform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A4E1BDDC320004CD300 /* URLTransform.swift */; };
 		3EB89A5D1BDDC350004CD300 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A5C1BDDC350004CD300 /* Venue.swift */; };
 		3EB89A5F1BDDC35A004CD300 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A5E1BDDC359004CD300 /* AppModel.swift */; };
-		3EB89A621BDDD6BE004CD300 /* VenueListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */; };
-		3EB89A641BDDE0C7004CD300 /* VenueListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A631BDDE0C7004CD300 /* VenueListTableViewCell.swift */; };
 		3EB89A661BDDEDB1004CD300 /* VenueCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB89A651BDDEDB1004CD300 /* VenueCategory.swift */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +56,8 @@
 /* Begin PBXFileReference section */
 		3E17A5941BEB1E26006A935C /* VenueDataServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueDataServiceTests.swift; sourceTree = "<group>"; };
 		3E17A5961BEB21DD006A935C /* URLConstructor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLConstructor.swift; sourceTree = "<group>"; };
+		3E517C1C1BEC213100AD0A6E /* VenueListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListTableViewCell.swift; sourceTree = "<group>"; };
+		3E517C1D1BEC213100AD0A6E /* VenueListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListViewController.swift; sourceTree = "<group>"; };
 		3E72AAAC1BDD94F900992D6A /* PlacesExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlacesExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3E72AAAF1BDD94F900992D6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3E72AAB11BDD94F900992D6A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -84,8 +86,6 @@
 		3EB89A4E1BDDC320004CD300 /* URLTransform.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLTransform.swift; sourceTree = "<group>"; };
 		3EB89A5C1BDDC350004CD300 /* Venue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		3EB89A5E1BDDC359004CD300 /* AppModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
-		3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListViewController.swift; sourceTree = "<group>"; };
-		3EB89A631BDDE0C7004CD300 /* VenueListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueListTableViewCell.swift; sourceTree = "<group>"; };
 		3EB89A651BDDEDB1004CD300 /* VenueCategory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueCategory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -114,6 +114,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E517C1A1BEC213100AD0A6E /* DataService */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = DataService;
+			sourceTree = "<group>";
+		};
+		3E517C1B1BEC213100AD0A6E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				3E517C1C1BEC213100AD0A6E /* VenueListTableViewCell.swift */,
+				3E517C1D1BEC213100AD0A6E /* VenueListViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
 		3E72AAA31BDD94F900992D6A = {
 			isa = PBXGroup;
 			children = (
@@ -235,8 +251,8 @@
 		3EB89A601BDDD67C004CD300 /* Venues */ = {
 			isa = PBXGroup;
 			children = (
-				3EB89A611BDDD6BE004CD300 /* VenueListViewController.swift */,
-				3EB89A631BDDE0C7004CD300 /* VenueListTableViewCell.swift */,
+				3E517C1A1BEC213100AD0A6E /* DataService */,
+				3E517C1B1BEC213100AD0A6E /* ViewControllers */,
 			);
 			path = Venues;
 			sourceTree = "<group>";
@@ -373,6 +389,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E17A5971BEB21DD006A935C /* URLConstructor.swift in Sources */,
+				3E517C1E1BEC213100AD0A6E /* VenueListTableViewCell.swift in Sources */,
 				3EB89A531BDDC320004CD300 /* CustomDateFormatTransform.swift in Sources */,
 				3EB89A3E1BDDBF92004CD300 /* DataService.swift in Sources */,
 				3EB89A581BDDC320004CD300 /* TransformOf.swift in Sources */,
@@ -381,17 +398,16 @@
 				3EB89A541BDDC320004CD300 /* DateFormaterTransform.swift in Sources */,
 				3EB89A5A1BDDC320004CD300 /* URLTransform.swift in Sources */,
 				3EB89A561BDDC320004CD300 /* EnumTransform.swift in Sources */,
+				3E517C1F1BEC213100AD0A6E /* VenueListViewController.swift in Sources */,
 				3E72AAB01BDD94F900992D6A /* AppDelegate.swift in Sources */,
 				3EB89A4F1BDDC320004CD300 /* FromJSON.swift in Sources */,
 				3EB89A5D1BDDC350004CD300 /* Venue.swift in Sources */,
 				3EB89A5F1BDDC35A004CD300 /* AppModel.swift in Sources */,
 				3EB89A551BDDC320004CD300 /* DateTransform.swift in Sources */,
 				3EB89A521BDDC320004CD300 /* ToJSON.swift in Sources */,
-				3EB89A641BDDE0C7004CD300 /* VenueListTableViewCell.swift in Sources */,
 				3EB89A591BDDC320004CD300 /* TransformType.swift in Sources */,
 				3EB89A571BDDC320004CD300 /* ISO8601DateTransform.swift in Sources */,
 				3EB89A501BDDC320004CD300 /* Mapper.swift in Sources */,
-				3EB89A621BDDD6BE004CD300 /* VenueListViewController.swift in Sources */,
 				3EB89A511BDDC320004CD300 /* Operators.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
