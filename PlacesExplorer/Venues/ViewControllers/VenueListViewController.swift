@@ -54,6 +54,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         locationManager.distanceFilter = 100 // meteres
         locationManager.requestWhenInUseAuthorization()
 //        locationManager.startUpdatingLocation()
+        ActivityManager.sharedManager().startActivityIndicator(venuesTableView)
         locationManager.requestLocation()
     }
     
@@ -63,7 +64,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         print("Invoking didUpdateLocations")
         if (locations.count > 0) {
             print("Location -> \(locations[0])")
-            self.fetchVenues(locations[0].coordinate)
+                self.fetchVenues(locations[0].coordinate)
         }
     }
     
@@ -77,10 +78,12 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         let venueDataService = VenueDataService()
         print("Loading...")
 //        let location = CLLocationCoordinate2D(latitude: -37.8136, longitude: 144.9631)
+        ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, success: { (venues) -> () in
                 print("Success \(venues.count)")
                 dispatch_async(dispatch_get_main_queue(), {
                     self.venues = venues
+                    ActivityManager.sharedManager().stopActivityIndicator()
                     self.venuesTableView.reloadData()
                 })
             
