@@ -264,6 +264,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="bJW-o8-fcR"/>
                     <connections>
+                        <outlet property="tableTopConstraint" destination="R1Q-Ii-KIE" id="zXw-Nh-g2O"/>
                         <outlet property="venuesTableView" destination="wPi-wo-nd5" id="FZR-2F-fBi"/>
                     </connections>
                 </viewController>

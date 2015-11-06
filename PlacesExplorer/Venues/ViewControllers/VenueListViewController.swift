@@ -13,6 +13,9 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     
     var locationManager: CLLocationManager?
     @IBOutlet weak var venuesTableView: UITableView!
+    
+    @IBOutlet weak var tableTopConstraint: NSLayoutConstraint!
+    
     var refreshControl: UIRefreshControl!
     var venues: [Venue] = []
     
@@ -30,6 +33,8 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             enableRefreshControl()
             findLocation()
         } else {
+            //otherwise the top row is hidden behind the nav bar.
+            tableTopConstraint.constant = 64
             fetchVenues(currentLocation, categoryId: selectedVenuesCategoryId!)
         }
     }
