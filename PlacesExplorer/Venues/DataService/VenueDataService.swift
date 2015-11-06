@@ -16,6 +16,7 @@ class VenueDataService: DataService {
         let dataString = "ll=" + String(location.latitude) + "," + String(location.longitude)
         let urlConstructor = createURLConstructorWithDataString(dataString)
         let urlSession = NSURLSession.sharedSession()
+        print(urlConstructor.url)
         let task = urlSession.dataTaskWithURL(urlConstructor.url) { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
             
             do {
@@ -25,6 +26,7 @@ class VenueDataService: DataService {
                     // put in function
                     return
                 }
+                print(JSON)
                 let responseDict = JSONDictionary["response"] as! Dictionary<String, AnyObject>
                 let venueDicts = responseDict["venues"] as! [Dictionary<String, AnyObject>]
                 let venues = venueDicts.map{(venueDict)->Venue  in
@@ -37,6 +39,37 @@ class VenueDataService: DataService {
             }
             
             }
+        task.resume()
+    }
+    
+    func getNearByVenues(location: CLLocationCoordinate2D, categoryId: String, success:(venues: [Venue]) -> (), failure: (error: NSError) -> ()) {
+        
+        let dataString = "ll=" + String(location.latitude) + "," + String(location.longitude) + "&categoryId=" + categoryId
+        let urlConstructor = createURLConstructorWithDataString(dataString)
+        let urlSession = NSURLSession.sharedSession()
+        print(urlConstructor.url)
+        let task = urlSession.dataTaskWithURL(urlConstructor.url) { (data:NSData?, response: NSURLResponse?, error:NSError?) -> Void in
+            
+            do {
+                let JSON = try NSJSONSerialization.JSONObjectWithData(data!, options:.AllowFragments)
+                guard let JSONDictionary :NSDictionary = JSON as? NSDictionary else {
+                    print("Not a Dictionary")
+                    // put in function
+                    return
+                }
+                print(JSON)
+                let responseDict = JSONDictionary["response"] as! Dictionary<String, AnyObject>
+                let venueDicts = responseDict["venues"] as! [Dictionary<String, AnyObject>]
+                let venues = venueDicts.map{(venueDict)->Venue  in
+                    return Mapper().map(venueDict, toObject: Venue())
+                }
+                success(venues: venues)
+            }
+            catch let JSONError as NSError {
+                print("Error -> \(JSONError)")
+            }
+            
+        }
         task.resume()
     }
     

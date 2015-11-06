@@ -19,12 +19,18 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     let venueDataService = VenueDataService()
     var isMainView = true
     
+    var currentLocation: CLLocationCoordinate2D!
+    var selectedVenueId: String?
+    var selectedVenuesCategoryId: String?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         if isMainView {
             enableRefreshControl()
             findLocation()
+        } else {
+            fetchVenues(currentLocation, categoryId: selectedVenuesCategoryId!)
         }
     }
     
@@ -73,7 +79,8 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         print("Invoking didUpdateLocations")
         if (locations.count > 0) {
             print("Location -> \(locations[0])")
-                self.fetchVenues(locations[0].coordinate)
+            self.currentLocation = locations[0].coordinate
+            self.fetchVenues(locations[0].coordinate)
         }
     }
     
@@ -84,8 +91,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     //MARK: webservice access
     
     func fetchVenues(location: CLLocationCoordinate2D){
-        print("Loading...")
-//        let location = CLLocationCoordinate2D(latitude: -37.8136, longitude: 144.9631)
+        print("fetching venues...")
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, success: { (venues) -> () in
                 print("Success \(venues.count)")
@@ -100,6 +106,22 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         })
     }
     
+    func fetchVenues(location: CLLocationCoordinate2D, categoryId: String){
+        print("fetching venues...")
+        ActivityManager.sharedManager().startActivityIndicator(self.view)
+        venueDataService.getNearByVenues(location, categoryId: categoryId, success: { (venues) -> () in
+            print("Success \(venues.count)")
+            dispatch_async(dispatch_get_main_queue(), {
+                ActivityManager.sharedManager().stopActivityIndicator()
+                self.venues = venues
+                self.venuesTableView.reloadData()
+            })
+            
+            }, failure: { (error) -> () in
+                print("Failure")
+        })
+    }
+    
     func fetchSimilarVenues(venueId: String){
         print("Fetching similar venues...")
         ActivityManager.sharedManager().startActivityIndicator(self.view)
@@ -107,10 +129,8 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             print("Success \(venues.count)")
             dispatch_async(dispatch_get_main_queue(), {
                     ActivityManager.sharedManager().stopActivityIndicator()
-                    let newListViewController = VenueListViewController()
-                    newListViewController.venues = venues
-                    newListViewController.isMainView = false
-                    self.navigationController?.pushViewController(newListViewController, animated: true)
+                    self.venues = venues
+                    self.venuesTableView.reloadData()
                 })
             
             }, failure: { (error) -> () in
@@ -142,7 +162,19 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let venue = venues[indexPath.row]
         print("Selected Venue \(venue.name) - \(venue.id)")
-        fetchSimilarVenues(venue.id!)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newListViewController = storyboard.instantiateViewControllerWithIdentifier("VenueListViewController") as! VenueListViewController
+        newListViewController.selectedVenueId = venue.id
+        newListViewController.currentLocation = self.currentLocation
+        newListViewController.isMainView = false
+        
+        
+        if let categories = venue.categories {
+            if categories.count > 0 {
+                newListViewController.selectedVenuesCategoryId = categories[0].id
+            }
+        }
+        self.navigationController?.pushViewController(newListViewController, animated: true)
         
     }
 
