@@ -13,13 +13,37 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     
     let locationManager = CLLocationManager()
     @IBOutlet weak var venuesTableView: UITableView!
-    
+    var refreshControl: UIRefreshControl!
     var venues: [Venue] = []
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        enableRefreshControl()
         findLocation()
+    }
+    
+    //Ideally a refresh control uses a tableviewcontroller. Since we are using a uiviewcontroller, we create 
+    //a new tableviewcontroller just to use refreshcontrol. The below commented method also works, but there is a 
+    //slight "stutter".
+    func enableRefreshControl() {
+        let tableViewController = UITableViewController()
+        tableViewController.tableView = venuesTableView
+        
+        refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
+        tableViewController.refreshControl = refreshControl
+    }
+    
+//    func enableRefreshControl2() {
+//        refreshControl = UIRefreshControl()
+//        refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
+//        venuesTableView.addSubview(refreshControl)
+//    }
+
+    func refresh() {
+        locationManager.requestLocation()
+        refreshControl.endRefreshing()
     }
     
     func findLocation() {
