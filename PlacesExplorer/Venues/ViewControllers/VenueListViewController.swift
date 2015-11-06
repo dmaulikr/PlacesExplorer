@@ -7,30 +7,62 @@
 //
 
 import UIKit
+import CoreLocation
 
-class VenueListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class VenueListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
+    let locationManager = CLLocationManager()
     @IBOutlet weak var venuesTableView: UITableView!
+    
     var venues: [Venue] = []
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchVenues()
+        findLocation()
     }
     
-    func fetchVenues(){
-        let dataService = DataService()
+    func findLocation() {
+        
+        locationManager.delegate = self
+
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.distanceFilter = 100 // meteres
+        locationManager.requestWhenInUseAuthorization()
+//        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
+    }
+    
+    //MARK: locationManagerDelegate
+    
+    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("Invoking didUpdateLocations")
+        if (locations.count > 0) {
+            print("Location -> \(locations[0])")
+            self.fetchVenues(locations[0].coordinate)
+        }
+    }
+    
+    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        print("Location update FAILED")
+    }
+    
+    //MARK: webservice access
+    
+    func fetchVenues(location: CLLocationCoordinate2D){
+        let venueDataService = VenueDataService()
         print("Loading...")
-        dataService.getNearByVenues({ (venues) -> () in
+//        let location = CLLocationCoordinate2D(latitude: -37.8136, longitude: 144.9631)
+        venueDataService.getNearByVenues(location, success: { (venues) -> () in
                 print("Success \(venues.count)")
                 dispatch_async(dispatch_get_main_queue(), {
                     self.venues = venues
                     self.venuesTableView.reloadData()
                 })
             
-            }) { (error) -> () in
+            }, failure: { (error) -> () in
                 print("Failure")
-        }
+        })
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
