@@ -12,6 +12,8 @@ class Venue: Mappable {
     var id: String?
     var name: String?
     var categories: [VenueCategory]?
+    var description: String?
+    var venueLocation: VenueLocation?
     
     class func newInstance() -> Mappable {
         return Venue()
@@ -21,5 +23,7 @@ class Venue: Mappable {
         id <- map["id"]
         name <- map["name"]
         categories <- map["categories"]
+        description <- map["description"]
+        venueLocation <- map["location"]
     }
 }

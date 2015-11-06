@@ -149,12 +149,35 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("venueTableViewCell") as! VenueListTableViewCell
         let venue = venues[indexPath.row]
-        print("\(venue.name)")
+        print("\(venue.name!)\n   \(venue.venueLocation?.city)    \(venue.venueLocation?.distance)")
         cell.venueTitleLabel.text = venue.name
         if let categories = venue.categories {
             if categories.count > 0 {
                 cell.venueTypeLabel.text = categories[0].name
             }
+        }
+        
+        if let desc = venue.description {
+            cell.venueCommentLabel.text = desc
+        } else {
+            cell.venueCommentLabel.text = "-"
+        }
+        
+        if let address = venue.venueLocation?.address {
+            cell.venueAddressLabel.text = address
+        } else {
+            cell.venueAddressLabel.text = "-"
+        }
+        if let city = venue.venueLocation?.city {
+            cell.venuePlaceLabel.text = city
+        } else {
+            cell.venuePlaceLabel.text = "-"
+        }
+        
+        if let distance = venue.venueLocation!.distance {
+            cell.venueDistanceLabel.text = String(distance) + " meters"
+        } else {
+            cell.venueDistanceLabel.text = "-"
         }
         return cell
     }
