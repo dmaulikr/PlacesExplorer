@@ -20,7 +20,21 @@ class URLConstructor {
     //Example: https://api.foursquare.com/v2/venues/search?client_id=45OD3KD2OAX3IDGYPJ3FVXQX5VYIGWV5JDQGM1MDBGJEWFJF&client_secret=E3G1JPJWTJF4XISJA5C5DYVKQLEXSOQGBLPWPLADBZFBTO2R&v=20130815&ll=-37.8136,144.9631
     var urlString: String {
         get {
-            return endPoint + webservice + "?" + "client_id=" + clientId + "&" + "client_secret=" + clientSecret + "&" + dataURLString
+            var interURLString = endPoint + webservice
+            if let localClientId = clientId {
+                interURLString = interURLString + "?" + "client_id=" + localClientId + "&" + "client_secret=" + clientSecret
+            }
+            
+            if let localDataURLString = dataURLString {
+                if let localClientId = clientId {
+                    interURLString = interURLString + "&" + dataURLString
+                } else {
+                    interURLString = interURLString + "?" + dataURLString
+                }
+                
+            }
+            
+            return interURLString
         }
     }
     

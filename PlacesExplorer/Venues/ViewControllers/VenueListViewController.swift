@@ -11,16 +11,21 @@ import CoreLocation
 
 class VenueListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate {
     
-    let locationManager = CLLocationManager()
+    var locationManager: CLLocationManager?
     @IBOutlet weak var venuesTableView: UITableView!
     var refreshControl: UIRefreshControl!
     var venues: [Venue] = []
     
+    let venueDataService = VenueDataService()
+    var isMainView = true
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        enableRefreshControl()
-        findLocation()
+        if isMainView {
+            enableRefreshControl()
+            findLocation()
+        }
     }
     
     //Ideally a refresh control uses a tableviewcontroller. Since we are using a uiviewcontroller, we create 
@@ -42,20 +47,24 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
 //    }
 
     func refresh() {
-        locationManager.requestLocation()
+        locationManager?.requestLocation()
         refreshControl.endRefreshing()
     }
     
     func findLocation() {
         
-        locationManager.delegate = self
+        if (locationManager == nil) {
+            locationManager = CLLocationManager()
+        }
+        
+        locationManager?.delegate = self
 
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.distanceFilter = 100 // meteres
-        locationManager.requestWhenInUseAuthorization()
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.distanceFilter = 100 // meteres
+        locationManager?.requestWhenInUseAuthorization()
 //        locationManager.startUpdatingLocation()
         ActivityManager.sharedManager().startActivityIndicator(venuesTableView)
-        locationManager.requestLocation()
+        locationManager?.requestLocation()
     }
     
     //MARK: locationManagerDelegate
@@ -75,7 +84,6 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     //MARK: webservice access
     
     func fetchVenues(location: CLLocationCoordinate2D){
-        let venueDataService = VenueDataService()
         print("Loading...")
 //        let location = CLLocationCoordinate2D(latitude: -37.8136, longitude: 144.9631)
         ActivityManager.sharedManager().startActivityIndicator(self.view)
@@ -85,6 +93,24 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
                     self.venues = venues
                     ActivityManager.sharedManager().stopActivityIndicator()
                     self.venuesTableView.reloadData()
+                })
+            
+            }, failure: { (error) -> () in
+                print("Failure")
+        })
+    }
+    
+    func fetchSimilarVenues(venueId: String){
+        print("Fetching similar venues...")
+        ActivityManager.sharedManager().startActivityIndicator(self.view)
+        venueDataService.getSimilarVenues(venueId, success: { (venues) -> () in
+            print("Success \(venues.count)")
+            dispatch_async(dispatch_get_main_queue(), {
+                    ActivityManager.sharedManager().stopActivityIndicator()
+                    let newListViewController = VenueListViewController()
+                    newListViewController.venues = venues
+                    newListViewController.isMainView = false
+                    self.navigationController?.pushViewController(newListViewController, animated: true)
                 })
             
             }, failure: { (error) -> () in
@@ -111,6 +137,13 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let venue = venues[indexPath.row]
+        print("Selected Venue \(venue.name) - \(venue.id)")
+        fetchSimilarVenues(venue.id!)
+        
     }
 
 }
