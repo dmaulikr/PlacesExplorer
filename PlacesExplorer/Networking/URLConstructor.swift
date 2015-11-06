@@ -6,6 +6,8 @@
 //  Copyright © 2015 Madhu. All rights reserved.
 //
 
+import Foundation
+
 class URLConstructor {
     
     var endPoint: String!
@@ -19,6 +21,12 @@ class URLConstructor {
     var urlString: String {
         get {
             return endPoint + webservice + "?" + "client_id=" + clientId + "&" + "client_secret=" + clientSecret + "&" + dataURLString
+        }
+    }
+    
+    var url: NSURL {
+        get {
+            return NSURL(string: urlString)!
         }
     }
     
