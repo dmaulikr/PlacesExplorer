@@ -74,7 +74,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.distanceFilter = 100 // meteres
         locationManager?.requestWhenInUseAuthorization()
-        ActivityManager.sharedManager().startActivityIndicator(venuesTableView)
+        ActivityManager.sharedManager().startActivityIndicator(view)
         locationManager?.requestLocation()
     }
     

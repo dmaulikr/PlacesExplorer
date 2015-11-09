@@ -30,9 +30,9 @@ class ActivityManager {
     }
     
     func startActivityIndicator(parentView: UIView) {
-//        activityIndicatorView.startAnimating()
-//        activityIndicatorView.frame = CGRectMake(parentView.frame.width/2 - 50, 210, 100, 100)
-//        UIApplication.sharedApplication().keyWindow?.addSubview(activityIndicatorView)
+        activityIndicatorView.startAnimating()
+        activityIndicatorView.frame = CGRectMake(parentView.frame.width/2 - 50, 210, 100, 100)
+        UIApplication.sharedApplication().keyWindow?.addSubview(activityIndicatorView)
         
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
         
@@ -40,7 +40,7 @@ class ActivityManager {
     }
     
     func stopActivityIndicator() {
-//        activityIndicatorView.stopAnimating()
+        activityIndicatorView.stopAnimating()
         UIApplication.sharedApplication().networkActivityIndicatorVisible = false
         isRunning = false
     }
