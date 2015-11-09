@@ -45,7 +45,7 @@ class VenueDataServiceTests: XCTestCase {
         XCTAssertEqual(urlConstructor.urlString, stichedUpURLString, "URL Construction")
     }
     
-    func testFetchVenuesForALocation() {
+    func testFetchVenuesForAlocation() {
         let expectation =  expectationWithDescription("Search API Test")
         
         let venueDataService = VenueDataService()
