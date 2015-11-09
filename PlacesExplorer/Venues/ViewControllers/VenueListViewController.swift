@@ -162,12 +162,6 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             }
         }
         
-        if let desc = venue.description {
-            cell.venueCommentLabel.text = desc
-        } else {
-            cell.venueCommentLabel.text = "-"
-        }
-        
         if let address = venue.venueLocation?.address {
             cell.venueAddressLabel.text = address
         } else {

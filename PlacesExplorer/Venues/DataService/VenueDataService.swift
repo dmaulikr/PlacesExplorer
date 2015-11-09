@@ -39,7 +39,7 @@ class VenueDataService: DataService {
                     // put in function
                     return
                 }
-                print(JSON)
+                //print(JSON)
                 let responseDict = JSONDictionary["response"] as! Dictionary<String, AnyObject>
                 let venueDicts = responseDict["venues"] as! [Dictionary<String, AnyObject>]
                 let venues = venueDicts.map{(venueDict)->Venue  in
