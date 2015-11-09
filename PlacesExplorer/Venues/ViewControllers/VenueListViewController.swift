@@ -50,7 +50,8 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         refreshControl.addTarget(self, action: "refresh", forControlEvents: .ValueChanged)
         tableViewController.refreshControl = refreshControl
     }
-    
+
+// For reference
 //    func enableRefreshControl2() {
 //        refreshControl = UIRefreshControl()
 //        refreshControl.addTarget(self, action: "refresh", forControlEvents: UIControlEvents.ValueChanged)
@@ -73,13 +74,11 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         locationManager?.desiredAccuracy = kCLLocationAccuracyBest
         locationManager?.distanceFilter = 100 // meteres
         locationManager?.requestWhenInUseAuthorization()
-//        locationManager.startUpdatingLocation()
         ActivityManager.sharedManager().startActivityIndicator(venuesTableView)
         locationManager?.requestLocation()
     }
     
     //MARK: locationManagerDelegate
-    
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         print("Invoking didUpdateLocations")
         if (locations.count > 0) {
@@ -94,14 +93,13 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     //MARK: webservice access
-    
     func fetchVenues(location: CLLocationCoordinate2D){
         print("fetching venues...")
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, success: { (venues) -> () in
                 print("Success \(venues.count)")
                 dispatch_async(dispatch_get_main_queue(), {
-                    self.venues = venues
+                    self.venues = self.sortVenues(venues)
                     ActivityManager.sharedManager().stopActivityIndicator()
                     self.venuesTableView.reloadData()
                 })
@@ -118,7 +116,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             print("Success \(venues.count)")
             dispatch_async(dispatch_get_main_queue(), {
                 ActivityManager.sharedManager().stopActivityIndicator()
-                self.venues = venues
+                self.venues = self.sortVenues(venues)
                 self.venuesTableView.reloadData()
             })
             
@@ -134,13 +132,24 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             print("Success \(venues.count)")
             dispatch_async(dispatch_get_main_queue(), {
                     ActivityManager.sharedManager().stopActivityIndicator()
-                    self.venues = venues
+                    self.venues = self.sortVenues(venues)
                     self.venuesTableView.reloadData()
                 })
             
             }, failure: { (error) -> () in
                 print("Failure")
         })
+    }
+    
+    func sortVenues(var venues: [Venue]) -> [Venue] {
+        venues.sortInPlace{(venue1, venue2) -> Bool in
+            guard let distance1 = venue1.venueLocation?.distance,
+                let distance2 = venue2.venueLocation?.distance else {
+                    return false
+            }
+            return distance1 < distance2
+        }
+        return venues
     }
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -155,6 +164,31 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         let cell = tableView.dequeueReusableCellWithIdentifier("venueTableViewCell") as! VenueListTableViewCell
         let venue = venues[indexPath.row]
         print("\(venue.name!)\n   \(venue.venueLocation?.city)    \(venue.venueLocation?.distance)")
+        configureCell(cell, withVenue: venue)
+        return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let venue = venues[indexPath.row]
+        print("Selected Venue \(venue.name) - \(venue.id)")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let newListViewController = storyboard.instantiateViewControllerWithIdentifier("VenueListViewController") as! VenueListViewController
+        newListViewController.selectedVenueId = venue.id
+        newListViewController.currentLocation = self.currentLocation
+        newListViewController.isMainView = false
+        
+        
+        if let categories = venue.categories {
+            if categories.count > 0 {
+                newListViewController.selectedVenuesCategoryId = categories[0].id
+            }
+        }
+        self.navigationController?.pushViewController(newListViewController, animated: true)
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+    }
+    
+    private func configureCell(cell: VenueListTableViewCell, withVenue venue: Venue) {
         cell.venueTitleLabel.text = venue.name
         if let categories = venue.categories {
             if categories.count > 0 {
@@ -178,26 +212,6 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         } else {
             cell.venueDistanceLabel.text = "-"
         }
-        return cell
-    }
-    
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let venue = venues[indexPath.row]
-        print("Selected Venue \(venue.name) - \(venue.id)")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let newListViewController = storyboard.instantiateViewControllerWithIdentifier("VenueListViewController") as! VenueListViewController
-        newListViewController.selectedVenueId = venue.id
-        newListViewController.currentLocation = self.currentLocation
-        newListViewController.isMainView = false
-        
-        
-        if let categories = venue.categories {
-            if categories.count > 0 {
-                newListViewController.selectedVenuesCategoryId = categories[0].id
-            }
-        }
-        self.navigationController?.pushViewController(newListViewController, animated: true)
-        
     }
 
 }

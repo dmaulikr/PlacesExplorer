@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -26,7 +27,7 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="venueTableViewCell" rowHeight="100" id="Q3l-pn-qVt" customClass="VenueListTableViewCell" customModule="PlacesExplorer" customModuleProvider="target">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Q3l-pn-qVt" id="Xem-Ql-J81">
-                                            <rect key="frame" x="0.0" y="0.0" width="240" height="138.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Event 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JcA-0J-gVH">
@@ -99,10 +100,10 @@
                                                     <exclude reference="9mw-Sj-IrC"/>
                                                     <exclude reference="SuB-eg-Bfe"/>
                                                     <exclude reference="V4V-5J-OU5"/>
-                                                    <exclude reference="YwF-fk-6LZ"/>
-                                                    <exclude reference="j4a-2s-HUE"/>
                                                     <exclude reference="oa2-Eg-Fxf"/>
                                                     <exclude reference="uiZ-Or-uE7"/>
+                                                    <exclude reference="YwF-fk-6LZ"/>
+                                                    <exclude reference="j4a-2s-HUE"/>
                                                 </mask>
                                             </variation>
                                             <variation key="heightClass=regular-widthClass=compact">
@@ -123,10 +124,10 @@
                                                     <include reference="9mw-Sj-IrC"/>
                                                     <include reference="SuB-eg-Bfe"/>
                                                     <include reference="V4V-5J-OU5"/>
-                                                    <include reference="YwF-fk-6LZ"/>
-                                                    <include reference="j4a-2s-HUE"/>
                                                     <include reference="oa2-Eg-Fxf"/>
                                                     <include reference="uiZ-Or-uE7"/>
+                                                    <include reference="YwF-fk-6LZ"/>
+                                                    <include reference="j4a-2s-HUE"/>
                                                 </mask>
                                             </variation>
                                         </tableViewCellContentView>
