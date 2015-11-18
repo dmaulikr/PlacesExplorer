@@ -25,17 +25,19 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     var currentLocation: CLLocationCoordinate2D!
     var selectedVenueId: String?
     var selectedVenuesCategoryId: String?
+    var selectedVenuesCategoryName: String?
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         if isMainView {
+            self.title = "Locating You..."
             enableRefreshControl()
             findLocation()
         } else {
             //otherwise the top row is hidden behind the nav bar.
             tableTopConstraint.constant = 64
-            fetchVenues(currentLocation, categoryId: selectedVenuesCategoryId!)
+            fetchVenues(currentLocation, categoryId: selectedVenuesCategoryId!, categoryName: selectedVenuesCategoryName!)
         }
     }
     
@@ -85,6 +87,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             print("Location -> \(locations[0])")
             self.currentLocation = locations[0].coordinate
             self.fetchVenues(locations[0].coordinate)
+            self.title = "Accessing Venues..."
         }
     }
     
@@ -102,6 +105,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
                     self.venues = self.sortVenues(venues)
                     ActivityManager.sharedManager().stopActivityIndicator()
                     self.venuesTableView.reloadData()
+                    self.title = "Nearby Venues"
                 })
             
             }, failure: { (error) -> () in
@@ -109,7 +113,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         })
     }
     
-    func fetchVenues(location: CLLocationCoordinate2D, categoryId: String){
+    func fetchVenues(location: CLLocationCoordinate2D, categoryId: String, categoryName: String){
         print("fetching venues...")
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, categoryId: categoryId, success: { (venues) -> () in
@@ -118,10 +122,12 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
                 ActivityManager.sharedManager().stopActivityIndicator()
                 self.venues = self.sortVenues(venues)
                 self.venuesTableView.reloadData()
+                self.title = "Popular \(categoryName)s"
             })
             
             }, failure: { (error) -> () in
                 print("Failure")
+                self.title = "Couldn't Access Venues"
         })
     }
     
@@ -181,11 +187,20 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
         if let categories = venue.categories {
             if categories.count > 0 {
                 newListViewController.selectedVenuesCategoryId = categories[0].id
+                newListViewController.selectedVenuesCategoryName = categories[0].name
+                self.navigationController?.pushViewController(newListViewController, animated: true)
             }
+        } else {
+            openAlertView("No Popular Venues found")
         }
-        self.navigationController?.pushViewController(newListViewController, animated: true)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
+    }
+    
+    func openAlertView(message: String) {
+        let alertViewController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
+        alertViewController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        self.presentViewController(alertViewController, animated: true, completion: nil)
     }
     
     private func configureCell(cell: VenueListTableViewCell, withVenue venue: Venue) {
