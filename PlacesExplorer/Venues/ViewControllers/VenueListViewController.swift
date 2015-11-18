@@ -113,7 +113,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func fetchVenues(location: CLLocationCoordinate2D, categoryId: String, categoryName: String){
-        self.title = "Accessing Popular Venues..."
+        self.title = "Accessing Popular \(categoryName)s..."
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, categoryId: categoryId, success: { (venues) -> () in
             print("Success \(venues.count)")
@@ -174,25 +174,27 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let venue = venues[indexPath.row]
-        print("Selected Venue \(venue.name) - \(venue.id)")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let newListViewController = storyboard.instantiateViewControllerWithIdentifier("VenueListViewController") as! VenueListViewController
-        newListViewController.selectedVenueId = venue.id
-        newListViewController.currentLocation = self.currentLocation
-        newListViewController.isMainView = false
-        
-        
-        if let categories = venue.categories {
-            if categories.count > 0 {
-                newListViewController.selectedVenuesCategoryId = categories[0].id
-                newListViewController.selectedVenuesCategoryName = categories[0].name
-                self.navigationController?.pushViewController(newListViewController, animated: true)
+        if isMainView {
+            let venue = venues[indexPath.row]
+            print("Selected Venue \(venue.name) - \(venue.id)")
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let newListViewController = storyboard.instantiateViewControllerWithIdentifier("VenueListViewController") as! VenueListViewController
+            newListViewController.selectedVenueId = venue.id
+            newListViewController.currentLocation = self.currentLocation
+            newListViewController.isMainView = false
+            
+            
+            if let categories = venue.categories {
+                if categories.count > 0 {
+                    newListViewController.selectedVenuesCategoryId = categories[0].id
+                    newListViewController.selectedVenuesCategoryName = categories[0].name
+                    self.navigationController?.pushViewController(newListViewController, animated: true)
+                } else {
+                    openAlertView("No Popular Venues found")
+                }
             } else {
                 openAlertView("No Popular Venues found")
             }
-        } else {
-            openAlertView("No Popular Venues found")
         }
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
