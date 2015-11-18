@@ -24,14 +24,6 @@ class VenueDataServiceTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
     }
-
-    func testAddition() {
-        XCTAssertEqual(1+1, 2, "sum")
-    }
-    
-    func testSubtraction() {
-        XCTAssertEqual(1-1, 0, "subtraction")
-    }
     
     func testURLConstruction() {
         let venueDataService = VenueDataService()
@@ -45,7 +37,7 @@ class VenueDataServiceTests: XCTestCase {
         XCTAssertEqual(urlConstructor.urlString, stichedUpURLString, "URL Construction")
     }
     
-    func testFetchVenuesForAlocation() {
+    func testFetchVenuesForAllocation() {
         let expectation =  expectationWithDescription("Search API Test")
         
         let venueDataService = VenueDataService()
