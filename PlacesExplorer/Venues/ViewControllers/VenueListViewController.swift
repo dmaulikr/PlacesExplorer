@@ -98,6 +98,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     //MARK: webservice access
     func fetchVenues(location: CLLocationCoordinate2D){
         print("fetching venues...")
+        self.title = "Accessing Popular Venues"
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, success: { (venues) -> () in
                 print("Success \(venues.count)")
