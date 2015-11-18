@@ -178,7 +178,9 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Venues" id="bJW-o8-fcR"/>
+                    <navigationItem key="navigationItem" title="Venues" id="bJW-o8-fcR">
+                        <barButtonItem key="backBarButtonItem" title=" " id="5uB-gU-wRM"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableTopConstraint" destination="R1Q-Ii-KIE" id="zXw-Nh-g2O"/>
                         <outlet property="venuesTableView" destination="wPi-wo-nd5" id="FZR-2F-fBi"/>
