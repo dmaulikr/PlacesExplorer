@@ -87,7 +87,6 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
             print("Location -> \(locations[0])")
             self.currentLocation = locations[0].coordinate
             self.fetchVenues(locations[0].coordinate)
-            self.title = "Accessing Venues..."
         }
     }
     
@@ -97,8 +96,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     
     //MARK: webservice access
     func fetchVenues(location: CLLocationCoordinate2D){
-        print("fetching venues...")
-        self.title = "Accessing Popular Venues"
+        self.title = "Accessing Venues..."
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, success: { (venues) -> () in
                 print("Success \(venues.count)")
@@ -115,7 +113,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     }
     
     func fetchVenues(location: CLLocationCoordinate2D, categoryId: String, categoryName: String){
-        print("fetching venues...")
+        self.title = "Accessing Popular Venues..."
         ActivityManager.sharedManager().startActivityIndicator(self.view)
         venueDataService.getNearByVenues(location, categoryId: categoryId, success: { (venues) -> () in
             print("Success \(venues.count)")
@@ -190,6 +188,8 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
                 newListViewController.selectedVenuesCategoryId = categories[0].id
                 newListViewController.selectedVenuesCategoryName = categories[0].name
                 self.navigationController?.pushViewController(newListViewController, animated: true)
+            } else {
+                openAlertView("No Popular Venues found")
             }
         } else {
             openAlertView("No Popular Venues found")
@@ -201,7 +201,7 @@ class VenueListViewController: UIViewController, UITableViewDataSource, UITableV
     func openAlertView(message: String) {
         let alertViewController = UIAlertController(title: nil, message: message, preferredStyle: .Alert)
         alertViewController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
-        self.presentViewController(alertViewController, animated: true, completion: nil)
+        presentViewController(alertViewController, animated: true, completion: nil)
     }
     
     private func configureCell(cell: VenueListTableViewCell, withVenue venue: Venue) {
