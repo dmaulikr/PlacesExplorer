@@ -10,7 +10,7 @@ import Foundation
 
 class DataService {
     
-    let endpoint = "https://api.foursquare.com"
+    let endpoint = "http://api.foursquare.com"
     let searchApiUrl = "/v2/venues/search"
     let clientId = "45OD3KD2OAX3IDGYPJ3FVXQX5VYIGWV5JDQGM1MDBGJEWFJF"
     let clientSecret = "E3G1JPJWTJF4XISJA5C5DYVKQLEXSOQGBLPWPLADBZFBTO2R&v=20130815"
